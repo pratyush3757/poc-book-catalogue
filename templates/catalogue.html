@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} {% endblock %}</h1>
+<!--     <div class='card-group'> -->
+    <div class="row justify-content-center">
+        {% for book in books %}
+        <div class="col-sm-4"> 
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{ book['thumbnail_url'] }}" alt="Book Cover">
+            <div class="card-body">
+                <h5 class="card-title">{{ book['title'] }}</h5>
+                <p class="card-text">By: {{ book['author'] }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">ISBN: {{ book['isbn'] }}</li>
+                <li class="list-group-item">Pages: {{ book['page_count'] }}</li>
+                <li class="list-group-item">Rating: {{ book['maturity_rating'] }}</li>
+            </ul>
+            {% block card_action scoped %} {% endblock %}
+        </div>
+        </div>
+        {% endfor %}
+        </div>
+<!--     </div> -->
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'catalogue.html' %}
+{% block title %} My Book Catalogue {% endblock %}
+{% block card_action %}
+        <div class="card-body">
+            <a href="{{ url_for('removebook', isbn=book['isbn'] )}}" class="card-link">Remove Book</a>
+        </div>
+{% endblock %}

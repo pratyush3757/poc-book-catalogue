@@ -1,0 +1,7 @@
+{% extends 'catalogue.html' %}
+{% block title %} Search Results: {% endblock %}
+{% block card_action %}
+        <div class="card-body">
+            <a href="{{ url_for('addbook', isbn=book['isbn'], title=book['title'], author=book['author'], page_count=book['page_count'], maturity_rating=book['maturity_rating'], thumbnail_url=book['thumbnail_url'] )}}" class="card-link">Add Book</a>
+        </div>
+{% endblock %}
