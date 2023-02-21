@@ -2,7 +2,6 @@ import requests
 import sqlite3
 from flask import Flask, render_template, request, url_for, flash, redirect
 from werkzeug.exceptions import abort
-# import json
 
 app = Flask(__name__)
 
@@ -16,7 +15,6 @@ def add_book(isbn, title, author, page_count, maturity_rating, thumbnail_url):
     VALUES
     (?, ?, ?, ?, ?, ?)
     """
-    #({isbn}, '{title}', '{author}', {page_count}, '{maturity_rating}', '{thumbnail_url}')"""
     conn.execute(sqlite_insert_query, (isbn, title, author, page_count, maturity_rating, thumbnail_url))
     conn.commit()
     conn.close()
@@ -36,26 +34,13 @@ def get_db_connection():
     return conn
 
 
-@app.route('/isbn')
-def book_details():
-    isbn = "9781449372620"
-    res = call_isbn_api(isbn)
-    if res:
-        return res
-
-    return "Hello world"
-
-
 def call_isbn_api(isbn: str):
-    # print("Getting Book details")
     response = requests.get(GOOGLE_BOOK_API + isbn)
-    # print("Got Book details")
     json_data = response.json() if response and response.status_code == 200 else None
 
     return json_data
 
 def json_to_book(response):
-    # print(response)
     books = []
     for book in response['items']:
         entry = {"isbn": 0, "title": "", 
@@ -116,12 +101,3 @@ def removebook():
 def error_ops():
     return render_template('error.html')
 
-if __name__ == "__main__":
-    print("Getting Book details")
-    isbn = "9781449372620"
-    response = requests.get(GOOGLE_BOOK_API + isbn)
-    print("Got Book details")
-    json_data = response.json() if response and response.status_code == 200 else None
-
-    if json_data is not None:
-        print(json_data)
