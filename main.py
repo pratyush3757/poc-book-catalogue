@@ -69,7 +69,7 @@ def index():
 def search():
     query = request.args.get('search')
     res = call_isbn_api(isbn=query)
-    if res:
+    if res['totalItems'] != 0:
         books = json_to_book(res)
         return render_template('search.html', books=books)
     return redirect(url_for('error_ops'))
